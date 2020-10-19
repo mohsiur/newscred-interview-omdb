@@ -82,8 +82,6 @@ public class Movie {
     @JsonProperty("Response")
     private String response;
 
-    private int favouriteIndex;
-
 
     public String getTitle() {
         return title;
@@ -277,11 +275,4 @@ public class Movie {
         this.response = response;
     }
 
-    public int getFavouriteIndex() {
-        return favouriteIndex;
-    }
-
-    public void setFavouriteIndex(int favouriteIndex) {
-        this.favouriteIndex = favouriteIndex;
-    }
 }

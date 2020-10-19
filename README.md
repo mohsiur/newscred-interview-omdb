@@ -6,6 +6,7 @@ The following repo is for Newscred Coding Assignment, which was completed on 10/
 
 * Docker
 * Java 11
+* Node >=10.X.X
 
 ## Launching App
 
@@ -24,42 +25,29 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-On your browser the app can be run in `localhost:8080`
-
-Username and Password to login is
+In another Terminal Run the following command
 ```
-Username: user
-Password: pass
+npm install
+yarn start
 ```
 
-The following api's result in the appropriate results.
+On your browser the app can be run in `localhost:3000`
 
-* List of all movies named `Ocean` can be called by the following `GET` `localhost:8080/search?title=Ocean`
-* Specific movie using the id can be called by the following `GET` `http://localhost:8080/movie?id=tt5203824`
-* A list of all recent movies viewed at and favorites can be called by the following `GET` `http://localhost:8080/profile`
-* You can favourite a movie by calling a `POST` request to the following endpoint `http://localhost:8080/favourite?id=tt5203824`
-
-NOTE: It should be noted, recents will only get populated when `/movie` endpoint is called.
+** NOTE: BOTH SPRING BOOT AND FRONTEND APP NEEDS TO RUN AT THE SAME TIME **
 
 ## Approach
 
 My approach to building a movie listing app was to initially figure out what the MvP could be. I had come to the conclusion that the MVP for a user should be
 
-* Able to login
 * See a list of movies given a title
 * See a movies info given an ID
 * Recent movies seen shows in Profile
 * Can add Movies to favourite lists
+* A Profile page which shows favorites and recent movies
  
 With prior experience of SpringBoot, I decided to choose that as my framework for calling the API.
 
-Due to time constraints and lack of frontend experience, I was not able to get a frontend up and running. The requirements for the backend works as is, with Notifications of when adding to favourites missing.
-
 ## How I would implement remaining tasks
 
-* Choose a frontend framework that would allow me to call `/search` endpoint as I'm typing in the navbar.
-* Show results in card/box view for all movies with their images.
-* Implement a notifiction listener, whenever List<Movie> favourites has a new item, this listener would show on frontend.
-* Implement JUnit5 tests across all services and models.
-
-If given a full day, I would be able to get an app running
+* Due to lack of knowledge on authentication in React I was not able to do a user sign in at the start.
+* Notification Listener was the same due to lack of knowledge on React/Front end technologies.
