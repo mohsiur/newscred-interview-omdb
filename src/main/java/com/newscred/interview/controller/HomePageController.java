@@ -65,7 +65,6 @@ public class HomePageController {
     )
     @ResponseBody
     public Profile getProfile() {
-
         return this.profile;
     }
 
