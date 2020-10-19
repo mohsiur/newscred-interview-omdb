@@ -6,17 +6,14 @@ import com.newscred.interview.service.OMDBService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -27,9 +24,9 @@ public class HomePageController {
     @Autowired
     private OMDBService omdbService;
 
-    private List<Movie> recent;
+    private HashSet<Movie> recent = new HashSet<>(10);
 
-    private List<Movie> favourite;
+    private HashSet<Movie> favourite = new HashSet<>();
 
     Profile profile = new Profile();
 
@@ -52,7 +49,6 @@ public class HomePageController {
     @ResponseBody
     public Movie getMovie(@RequestParam String id) {
         Movie currMovie = omdbService.getMovie(id);
-        recent = new ArrayList<>();
         recent.add(currMovie);
         profile.setRecent(recent);
         return currMovie;
@@ -65,19 +61,24 @@ public class HomePageController {
     )
     @ResponseBody
     public Profile getProfile() {
+        profile.setFavourites(favourite);
+        profile.setRecent(recent);
         return this.profile;
     }
 
     @RequestMapping(
             value = {"/favourite"},
-            method = RequestMethod.POST
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
     public Profile setFavourite(@RequestParam String id) {
+        logger.info("POSTING FOR ID={}",id);
         Movie currMovie = omdbService.getMovie(id);
+
         favourite.add(currMovie);
         profile.setFavourites(favourite);
-        return profile;
+        return this.profile;
     }
 
 
