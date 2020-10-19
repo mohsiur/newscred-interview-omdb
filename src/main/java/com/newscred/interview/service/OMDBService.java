@@ -44,12 +44,12 @@ public class OMDBService {
         }
     }
 
-    public Movie getMovie(String title) {
+    public Movie getMovie(String id) {
         try {
-            return omdbRestClient.getForObject(buildUri(omdbTitleAPI, title), Movie.class);
+            return omdbRestClient.getForObject(buildUri(omdbTitleAPI, id), Movie.class);
         }
         catch (Exception e) {
-            logger.error("Error could not cal omdb search api");
+            logger.error("Error could not cal omdb id api");
             throw e;
         }
     }
@@ -57,7 +57,6 @@ public class OMDBService {
 
 
     private URI buildUri(String endpoint, String title) {
-
 
         return UriComponentsBuilder.fromHttpUrl(endpoint).buildAndExpand(omdbApiKey, title).toUri();
     }
